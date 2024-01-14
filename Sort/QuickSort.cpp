@@ -2,7 +2,7 @@
 using namespace std;
 
 int partition( vector<int> &arr, int l, int r ) { //[l,r]
-    int i=-1+l,j=0;
+    int i = l - 1;
     for( int j=l ; j < r ; j++ )
         if( arr[j] < arr[r] )
             swap(arr[++i],arr[j]);        

@@ -1,14 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void reverse( vector<int> &arr, int l, int r ) { //[l,r)
-    for( int i=0 ; i < (r-l)/2 ; i++ )
-        swap(arr[l+i],arr[r-i-1]);
-}
-
 void merge( vector<int> &arr, int l, int m, int r ) { //[l,r)
-    vector<int> temp=arr;
-    reverse(temp,m,r);
+    vector<int> temp = arr;
+    reverse(temp.begin() + m, temp.begin() + r);
     for( int i=l, j=r-1, k=l ; k < r ; k++ ) {
         if( temp[i] < temp[j] )
             arr[k]=temp[i++];       
@@ -19,7 +14,7 @@ void merge( vector<int> &arr, int l, int m, int r ) { //[l,r)
 
 void merge_sort( vector<int> &arr, int l, int r ) { //[l,r)
     if( r-l >=2 ) {
-        int m=(l+r)/2;
+        int m = (l+r)/2;
         merge_sort(arr,l,m);
         merge_sort(arr,m,r);
         merge(arr,l,m,r);
