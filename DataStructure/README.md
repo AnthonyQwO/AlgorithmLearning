@@ -1,6 +1,83 @@
 # Data Structure
 
-### Segment Tree with Lazy Propagation
+## Binary Indexed Tree (BIT)
+
+The provided code defines a data structure known as Binary Indexed Tree (BIT) and includes various operations for updating and querying the BIT.
+
+```cpp
+#define lowbit(x) (x&-x)
+
+struct BIT {
+    int n;
+    vector<int> bit;
+
+    // Constructor to initialize the BIT with size _n
+    BIT(int _n):n(_n), bit(n+1) {}
+
+    // Update the BIT at index x by adding val
+    void update( int x, int val ) {
+        for(;x <= n; x += lowbit(x)) bit[x] += val;
+    }
+
+    // Update the range [L, R] in the BIT by adding val to L and subtracting val from R+1
+    void range_update( int L, int R, int val ) {
+        update(L, val);
+        update(R+1, -val);
+    }
+
+    // Query the BIT up to index x, returning the cumulative sum
+    int query( int x ) {
+        int res = 0;
+        for(;x; x -= lowbit(x)) res += bit[x];
+        return res;
+    }
+
+    // Query the range [L, R] in the BIT, returning the sum within the specified range
+    int range_query( int L, int R ) {
+        return query(R) - query(L-1);
+    }
+};
+```
+
+### Explanation
+
+- **BIT Structure**: The structure named `BIT` represents a Binary Indexed Tree. It consists of an array `bit` to store cumulative sums and an integer `n` indicating the size of the array.
+
+- **Constructor**: The constructor initializes the BIT with a specified size `_n`. The `bit` array is initialized with a size of `n+1`.
+
+- **Update Operation**: The `update` function adds a given value `val` to the BIT at a specific index `x`. It iteratively updates the cumulative sums by traversing the tree using the `lowbit` function.
+
+- **Range Update Operation**: The `range_update` function updates a range [L, R] in the BIT. It adds `val` to index `L` and subtracts `val` from index `R+1`.
+
+- **Query Operation**: The `query` function calculates the cumulative sum up to a specified index `x` by traversing the BIT using the `lowbit` function.
+
+- **Range Query Operation**: The `range_query` function calculates the sum within a specified range [L, R] in the BIT by subtracting the cumulative sum at index `L-1` from the cumulative sum at index `R`.
+
+This data structure is useful for efficiently maintaining and querying cumulative sums, making it particularly efficient for tasks such as range updates and range queries in a sequence of values.
+
+The `lowbit` function is a common utility function used in the context of Binary Indexed Trees (BIT) or Fenwick Trees. Its purpose is to efficiently calculate the least significant bit that is set (i.e., the rightmost set bit) in a binary representation of a given integer.
+
+Here's the explanation:
+
+```cpp
+#define lowbit(x) (x & -x)
+```
+
+- The `&` operator performs a bitwise AND operation.
+- The `-x` expression represents the two's complement of `x` (negation).
+
+The `lowbit` function is used to find the least significant bit that is set in the binary representation of the integer `x`. In other words, it returns a value that represents the rightmost 1-bit in the binary representation of `x`.
+
+For example, let's consider a few cases:
+
+- If `x` is 12 (binary: 1100), `lowbit(12)` would be 4 (binary: 100).
+- If `x` is 7 (binary: 0111), `lowbit(7)` would be 1 (binary: 001).
+- If `x` is 16 (binary: 10000), `lowbit(16)` would be 16 (binary: 10000).
+
+In the context of a BIT, the `lowbit` function is often used in the update and query operations to efficiently traverse the tree structure. Specifically, in the update operation, it helps in identifying the next node to be updated in the tree, and in the query operation, it helps in determining the nodes to be included in the cumulative sum calculation.
+
+
+## Segment Tree with Lazy Propagation
 
 This C++ code defines a segment tree with lazy propagation. The segment tree is used to efficiently perform range queries and updates on an array. Lazy propagation is employed to optimize the update and cover operations.
 
@@ -65,7 +142,7 @@ int main()
 
 This segment tree is capable of handling various types of queries, including updates and covers, with the help of lazy propagation for efficient range modifications.
 
-### Treap Data Structure
+## Treap Data Structure
 
 This C++ code defines a data structure called Treap, which is a combination of a binary search tree (BST) and a max-heap. The Treap maintains a set of elements with associated priorities. Each node in the Treap has a key (value), priority, size, sum, and tags for tree operations. The key is the element value, priority is a randomly generated value, size represents the number of nodes in the subtree rooted at the current node, sum is the sum of values in the subtree, and tag is a flag for lazy propagation.
 
