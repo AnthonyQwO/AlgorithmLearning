@@ -81,7 +81,7 @@ In the context of a BIT, the `lowbit` function is often used in the update and q
 
 This C++ code defines a segment tree with lazy propagation. The segment tree is used to efficiently perform range queries and updates on an array. Lazy propagation is employed to optimize the update and cover operations.
 
-#### Segment Tree Structure
+### Segment Tree Structure
 ```cpp
 struct segmentTree {
     int n;
@@ -95,7 +95,7 @@ struct segmentTree {
 };
 ```
 
-#### Functions and Operations
+### Functions and Operations
 - **push(int i, int L, int R)**: Applies lazy propagation to the node at index `i` in the segment tree.
 - **pull(int i, int L, int R)**: Updates the node at index `i` based on its children.
 - **build(vector<int>& arr, int i=1, int L=1, int R=-1)**: Builds the segment tree from the given array.
@@ -103,7 +103,7 @@ struct segmentTree {
 - **update(int rL, int rR, int val, int i=1, int L=1, int R=-1)**: Updates a range in the segment tree with a given value.
 - **cover(int rL, int rR, int val, int i=1, int L=1, int R=-1)**: Covers a range in the segment tree with a given value.
 
-#### Usage
+### Usage
 The main function initializes the segment tree, builds it with the input array, and then processes queries based on the operation type.
 
 ```cpp
@@ -146,7 +146,7 @@ This segment tree is capable of handling various types of queries, including upd
 
 This C++ code defines a data structure called Treap, which is a combination of a binary search tree (BST) and a max-heap. The Treap maintains a set of elements with associated priorities. Each node in the Treap has a key (value), priority, size, sum, and tags for tree operations. The key is the element value, priority is a randomly generated value, size represents the number of nodes in the subtree rooted at the current node, sum is the sum of values in the subtree, and tag is a flag for lazy propagation.
 
-#### Treap Node Structure
+### Treap Node Structure
 ```cpp
 struct Treap {
     int key, pri, sz, tag, sum;
@@ -158,7 +158,7 @@ struct Treap {
 };
 ```
 
-#### Functions and Operations
+### Functions and Operations
 - **Size(Treap *a)**: Returns the size of the subtree rooted at node `a`.
 - **pull(Treap *a)**: Updates the size and sum attributes of node `a` based on its children.
 - **push(Treap *a)**: Applies lazy propagation by swapping the left and right children and toggling their tags.
@@ -189,3 +189,76 @@ int main() {
 ```
 
 This Treap data structure can be useful for various applications where both search and priority-based operations are required.
+
+Sure, I'll provide an explanation in Markdown format:
+
+## Trie
+
+The provided C++ code implements a trie data structure, a tree-like data structure used for efficiently storing and searching a dynamic set of strings. Let's break down the code and its functionalities:
+
+### Trie Structure
+
+The `trie` structure is defined with the following attributes:
+- `nxt`: An array of pointers to the next nodes, one for each lowercase English letter.
+- `cnt`: An integer representing the number of strings ending at the current node.
+- `sz`: An integer representing the count of strings with prefixes including the current node.
+
+```cpp
+struct trie {
+    trie* nxt[26];
+    int cnt;    // Records the number of strings ending at this node
+    int sz;     // Records the count of strings with prefixes including this node
+    trie() : cnt(0), sz(0) {
+        memset(nxt, 0, sizeof(nxt));
+    }
+};
+```
+
+### Trie Initialization
+
+A global variable `root` is declared as a new trie, representing the root node of the trie.
+
+```cpp
+trie* root = new trie(); // Create a new trie
+```
+
+### Insertion Function
+
+The `insert` function is responsible for inserting a string into the trie. It iterates through each character of the string, updating the `sz` counters and creating new nodes as needed.
+
+```cpp
+void insert(string& s) {
+    trie* now = root;  // Start from the root node each time
+    for (auto i : s) {
+        now->sz++;
+        if (now->nxt[i - 'a'] == NULL) {
+            now->nxt[i - 'a'] = new trie();
+        }
+        now = now->nxt[i - 'a'];  // Move to the next letter
+    }
+    now->cnt++;
+    now->sz++;
+}
+```
+
+### Query Functions
+
+Two query functions are provided:
+- `query_prefix`: Returns the count of prefixes equal to a given string.
+- `query_count`: Returns the count of occurrences of a specific string.
+
+Both functions traverse the trie, checking for the existence of nodes corresponding to the characters of the input string.
+
+```cpp
+int query_prefix(string& s) {  // Query the count of prefixes equal to s
+    // Implementation details
+}
+
+int query_count(string& s) {  // Query the count of occurrences of the string s
+    // Implementation details
+}
+```
+
+These functions help in efficiently retrieving information about the stored strings in the trie.
+
+This trie implementation is useful for tasks like searching for strings with a specific prefix or counting the occurrences of individual strings.
