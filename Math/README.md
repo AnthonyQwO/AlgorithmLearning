@@ -7,7 +7,7 @@ This C++ code implements two important algorithms in number theory: Pollard's Rh
 Pollard's Rho algorithm is used for integer factorization. It's particularly efficient when the factors of the number to be factored are small. The algorithm generates a sequence of numbers using a recurrence relation and detects cycles in this sequence to find non-trivial factors.
 
 #### Function `f(x, mod)`
-This function computes \(x^2 + 1 \mod \text{mod}\).
+This function computes $x^2 + 1 \mod \text{mod}$.
 
 #### Function `pointard_rho(n)`
 This function implements Pollard's Rho algorithm to find a non-trivial factor of the given integer \(n\).
